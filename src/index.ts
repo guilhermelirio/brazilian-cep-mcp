@@ -1,7 +1,15 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import {
+    CallToolRequestSchema,
+    ListToolsRequestSchema,
+} from "@modelcontextprotocol/sdk/types.js";
 import { z } from "zod";
 import axios from "axios";
+
+const toolSchema = z.object({
+  cep: z.string(),
+});
 
 // Criando o servidor MCP
 const server = new McpServer({
@@ -16,7 +24,6 @@ const server = new McpServer({
     }
   }
 });
-
 
 server.tool(
   "consultar-cep",
@@ -50,16 +57,16 @@ server.tool(
         content: [{ 
           type: "text", 
           text: `
-Endereço encontrado:
-CEP: ${endereco.cep}
-Logradouro: ${endereco.logradouro}
-Complemento: ${endereco.complemento || "N/A"}
-Bairro: ${endereco.bairro}
-Cidade: ${endereco.localidade}
-Estado: ${endereco.uf} (${endereco.estado})
-Região: ${endereco.regiao}
-DDD: ${endereco.ddd}
-IBGE: ${endereco.ibge}
+            Endereço encontrado:
+            CEP: ${endereco.cep}
+            Logradouro: ${endereco.logradouro}
+            Complemento: ${endereco.complemento || "N/A"}
+            Bairro: ${endereco.bairro}
+            Cidade: ${endereco.localidade}
+            Estado: ${endereco.uf} (${endereco.estado})
+            Região: ${endereco.regiao}
+            DDD: ${endereco.ddd}
+            IBGE: ${endereco.ibge}
           ` 
         }]
       };
@@ -87,37 +94,6 @@ IBGE: ${endereco.ibge}
       };
     }
   }
-);
-
-// Adicionando um recurso estático para documentação
-server.resource(
-  "docs",
-  "docs://cep-api",
-  async (uri) => ({
-    contents: [{
-      uri: uri.href,
-      text: `
-# Postal Code Query Service
-This MCP server allows querying address information from a postal code using the ViaCEP API.
-
-## Available tool:
-- consultar-cep: Returns detailed address information from a postal code
-
-## Parameters:
-- cep: Postal code in the format of 8 numeric digits (required)
-
-## Example usage:
-\`\`\`
-{
-  "cep": "01001000"
-}
-\`\`\`
-
-## Response:
-The response will include information such as street, neighborhood, city, state, region, DDD, and IBGE codes.
-`
-    }]
-  })
 );
 
 async function main() {
