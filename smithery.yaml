@@ -18,15 +18,6 @@ startCommand:
       "command": "node",
       "args": [
         "--no-warnings",
-        "src/index.ts"
+        "dist/index.js"
       ]
     })
-
-tools:
-  - name: consultar-cep
-    description: Query address information from a Brazilian postal code (CEP)
-    parameters:
-      - name: cep
-        type: string
-        description: CEP a ser consultado (apenas números, 8 dígitos)
-        optional: false
