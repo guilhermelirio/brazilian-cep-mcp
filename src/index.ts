@@ -1,32 +1,23 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import {
-    CallToolRequestSchema,
-    ListToolsRequestSchema,
-} from "@modelcontextprotocol/sdk/types.js";
 import { z } from "zod";
 import axios from "axios";
-
-const toolSchema = z.object({
-  cep: z.string(),
-});
 
 // Criando o servidor MCP
 const server = new McpServer({
   name: "CEP-Server",
   version: "1.0.0",
   capabilities: {
-    resources: {
-      "docs": { description: "Documentation of the server" }
-    },
-    tools: {
-      "consultar-cep": { description: "Query address information from a Brazilian postal code (CEP)" }
-    }
+    tools: {},
+    resources: {},
+    prompts: {}
   }
 });
 
+
 server.tool(
   "consultar-cep",
+  "Query address information from a Brazilian postal code (CEP)",
   {
     cep: z.string()
       .length(8, "Postal code must have exactly 8 digits")
@@ -57,16 +48,16 @@ server.tool(
         content: [{ 
           type: "text", 
           text: `
-            Endereço encontrado:
-            CEP: ${endereco.cep}
-            Logradouro: ${endereco.logradouro}
-            Complemento: ${endereco.complemento || "N/A"}
-            Bairro: ${endereco.bairro}
-            Cidade: ${endereco.localidade}
-            Estado: ${endereco.uf} (${endereco.estado})
-            Região: ${endereco.regiao}
-            DDD: ${endereco.ddd}
-            IBGE: ${endereco.ibge}
+  Endereço encontrado:
+  CEP: ${endereco.cep}
+  Logradouro: ${endereco.logradouro}
+  Complemento: ${endereco.complemento || "N/A"}
+  Bairro: ${endereco.bairro}
+  Cidade: ${endereco.localidade}
+  Estado: ${endereco.uf} (${endereco.estado})
+  Região: ${endereco.regiao}
+  DDD: ${endereco.ddd}
+  IBGE: ${endereco.ibge}
           ` 
         }]
       };

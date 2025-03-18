@@ -15,7 +15,7 @@
   "author": "Guilherme Lirio Tomasi de Oliveira",
   "license": "MIT",
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.0.0",
+    "@modelcontextprotocol/sdk": "^1.7.0",
     "axios": "^1.6.0",
     "zod": "^3.22.0"
   },
