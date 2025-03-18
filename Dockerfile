@@ -33,4 +33,4 @@ RUN npm install --omit=dev --ignore-scripts
 EXPOSE 8080
 
 # Run the server
-ENTRYPOINT ["node", "build/index.js"]
+ENTRYPOINT ["node", "dist/index.js"]
