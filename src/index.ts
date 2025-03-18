@@ -12,8 +12,7 @@ const server = new McpServer({
       "docs": { description: "Documentation of the server" }
     },
     tools: {
-      "consultar-cep": { description: "Query address information from a Brazilian postal code (CEP)" },
-      autoInvoke: true
+      "consultar-cep": { description: "Query address information from a Brazilian postal code (CEP)" }
     }
   }
 });
