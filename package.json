@@ -1,0 +1,27 @@
+{
+  "name": "brazilian-cep-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP server that queries Brazilian postal code (CEP) information",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node --esm index.ts"
+  },
+  "keywords": [
+    "mcp"
+  ],
+  "author": "Guilherme Lirio Tomasi de Oliveira",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "axios": "^1.6.0",
+    "zod": "^3.22.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0"
+  }
+}

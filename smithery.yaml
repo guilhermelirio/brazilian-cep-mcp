@@ -1,0 +1,32 @@
+name: brazilian-cep-mcp
+description: A Model Context Protocol (MCP) server that provides tools to query Brazilian postal code (CEP) information.
+version: 1.0.0
+author: Guilherme Lirio Tomasi de Oliveira
+repository: https://github.com/guilhermelirio/brazilian-cep-mcp
+license: MIT
+
+# Smithery.ai configuration
+startCommand:
+  type: stdio
+  configSchema:
+    # JSON Schema defining the configuration options for the MCP.
+    {}
+  commandFunction:
+    # A function that produces the CLI command to start the MCP on stdio.
+    |-
+    (config) => ({
+      "command": "node",
+      "args": [
+        "--no-warnings",
+        "src/index.ts"
+      ]
+    })
+
+tools:
+  - name: consultar-cep
+    description: Query address information from a Brazilian postal code (CEP)
+    parameters:
+      - name: cep
+        type: string
+        description: CEP a ser consultado (apenas números, 8 dígitos)
+        optional: false
